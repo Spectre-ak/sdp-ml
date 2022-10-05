@@ -8,3 +8,6 @@ https://maker.pro/arduino/tutorial/how-to-interface-the-ov7670-camera-module-wit
 
 3
 https://circuitdigest.com/microcontroller-projects/how-to-use-ov7670-camera-module-with-arduino
+
+4
+https://www.instructables.com/OV7670-Arduino-Camera-Sensor-Module-Framecapture-T/
