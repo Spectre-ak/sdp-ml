@@ -46,52 +46,6 @@ with detection_graph.as_default():
     tf.import_graph_def(od_graph_def, name='')
  
 
-# # Detection
-with detection_graph.as_default():
-  with tf.Session(graph=detection_graph) as sess:
-    while True:
-      # Get raw pixels from the screen, save it to a Numpy array
-      img=Image.open('./object_detection/test_images/image3.jpg')
-      # img=img.resize((1280, 720))
-
-      # img=Image.open('./26.bmp')
-
-      # cv2.imshow('Window', np.array(img))
-      # cv2.waitKey(50000)
-      print(img.size)
-      # img = img.resize((1, 1080, 1920, 3))
-      image_np = np.array(img)
-      # To get real color we do this:
-      #image_np = cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB)
-      # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
-      image_np_expanded = np.expand_dims(image_np, axis=0)
-      # Actual detection.
-      image_tensor = detection_graph.get_tensor_by_name('image_tensor:0')
-      boxes = detection_graph.get_tensor_by_name('detection_boxes:0')
-      scores = detection_graph.get_tensor_by_name('detection_scores:0')
-      classes = detection_graph.get_tensor_by_name('detection_classes:0')
-      num_detections = detection_graph.get_tensor_by_name('num_detections:0')
-      # Visualization of the results of a detection.
-      (boxes, scores, classes, num_detections) = sess.run(
-          [boxes, scores, classes, num_detections],
-          feed_dict={image_tensor: image_np_expanded})
-      # print((boxes, scores, classes, num_detections))
-      vis_util.visualize_boxes_and_labels_on_image_array(
-          image_np,
-          np.squeeze(boxes),
-          np.squeeze(classes).astype(np.int32),
-          np.squeeze(scores),
-          category_index,
-          use_normalized_coordinates=True,
-          line_thickness=2)
-      # Show image with detection
-      image_np=cv2.cvtColor(image_np,cv2.COLOR_BGR2RGB)
-      # cv2.imshow('Marked', image_np)
-      cv2.imwrite('./test_out.jpg', image_np)
-      break
-
-
-
 
 def testOverImg(path, file_name):
   print(path)
